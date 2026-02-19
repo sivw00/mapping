@@ -58,7 +58,7 @@
 
 <script>
 const svg = document.getElementById("oxMap");
-let selectedColor = "#FF0000"; // default starting color
+let selectedColor = null; // no default colour
 
 // --- Color palette buttons ---
 document.querySelectorAll(".color-btn").forEach(btn => {
@@ -136,10 +136,15 @@ function loadMapState() {
 svg.querySelectorAll("path").forEach(region => {
 
   // Click to fill colour
-  region.addEventListener("click", () => {
-    region.style.fill = selectedColor;
-    saveMapState();
-  });
+region.addEventListener("click", () => {
+  if (!selectedColor) {
+    alert("Please select a colour first!");
+    return;
+  }
+  region.style.fill = selectedColor;
+  saveMapState();
+});
+
 
   // Double-click to add/edit label
   region.addEventListener("dblclick", () => {
